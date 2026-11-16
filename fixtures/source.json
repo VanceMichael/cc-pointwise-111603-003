@@ -1,0 +1,46 @@
+{
+  "stages": {
+    "opening": {
+      "routes": {
+        "/requests": {
+          "contentType": "application/json",
+          "body": {
+            "items": [
+              {
+                "reference": "visit-1",
+                "name": "Local Guest",
+                "slot": "A",
+                "requestedAt": "2026-11-16T08:00:00Z",
+                "documentType": "passport",
+                "status": "requested"
+              }
+            ],
+            "next": null
+          },
+          "etag": "\"opening\""
+        }
+      }
+    },
+    "updated": {
+      "routes": {
+        "/requests": {
+          "contentType": "application/json",
+          "body": {
+            "items": [
+              {
+                "reference": "visit-1",
+                "name": "Local Guest",
+                "slot": "A",
+                "requestedAt": "2026-11-16T08:00:00Z",
+                "documentType": "passport",
+                "status": "cancelled"
+              }
+            ],
+            "next": null
+          },
+          "etag": "\"updated\""
+        }
+      }
+    }
+  }
+}
