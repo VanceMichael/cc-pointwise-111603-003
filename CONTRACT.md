@@ -8,4 +8,8 @@
 
 ## 业务消费
 
-`readOperations(repository)` 当前返回 product 和 rows，每行带 sourceId/source/observedAt/attributes。现有 CLI 和结构化导入用于本地运维；新增采集结果也需要让业务读取入口看到一致状态，必要的解释信息可扩展返回。原始来源身份与 observedAt 不是通用的业务版本、完整性或成功证明。来源接口契约是兼容边界，采集、状态管理和新业务表达由实现决定。
+`readOperations(recordRepository, bookingRepository?)` 当前返回 product 和 rows，每行带 sourceId/source/observedAt/attributes；提供预约状态库时额外附带 `booking`（step、stepLabel、receipt、detail、updatedAt）。现有 CLI 和结构化导入用于本地运维；门户自动化结果通过同一业务读取入口呈现一致状态。原始来源身份与 observedAt 不是通用的业务版本、完整性或成功证明；只有门户 201 回执（或经 reference 核实到的门户记录）才是已预约的依据，本地未收到响应不构成失败或成功结论。来源接口契约是兼容边界，采集、状态管理和新业务表达由实现决定。
+
+## 门户自动化状态约定
+
+每位访客以来源 `reference` 作为持久化身份，步骤语义如下：`imported`（已导入待登记）、`needs-material`（资料不足，缺 reference/name/slot/documentType 之一，留待补充）、`draft-submitted`（第一步草稿已提交，停在证件确认页）、`recovering`（确认后连接中断，本地无回执，下次运行只核实不重约）、`booked`（门户已确认并持有回执）、`slot-conflict`（门户 409，时段满，资料未调整前不重试）、`cancelling`（撤销请求结果未知，待门户核实）、`cancelled`（门户已撤销或核实无预约）、`failed`（需人工介入）。任何提交前都先 `GET /portal/bookings?reference=...` 核实；会话 403 自动重建会话，状态库保证重启后续跑同一访客时能说明其停留步骤。
