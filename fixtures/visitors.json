@@ -1,0 +1,86 @@
+[
+  {
+    "sourceId": "visit-1",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:00:00Z",
+    "label": "Local Guest",
+    "attributes": {
+      "reference": "visit-1",
+      "name": "Local Guest",
+      "slot": "A",
+      "requestedAt": "2026-11-18T08:00:00Z",
+      "documentType": "passport",
+      "status": "requested"
+    }
+  },
+  {
+    "sourceId": "visit-2",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:05:00Z",
+    "label": "Second Guest",
+    "attributes": {
+      "reference": "visit-2",
+      "name": "Second Guest",
+      "slot": "A",
+      "requestedAt": "2026-11-18T08:05:00Z",
+      "documentType": "identity-card",
+      "status": "requested"
+    }
+  },
+  {
+    "sourceId": "visit-3",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:10:00Z",
+    "label": "Paper Guest",
+    "attributes": {
+      "reference": "visit-3",
+      "name": "Paper Guest",
+      "slot": "B",
+      "requestedAt": "2026-11-18T08:10:00Z",
+      "documentType": null,
+      "status": "requested"
+    }
+  },
+  {
+    "sourceId": "visit-4",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:15:00Z",
+    "label": "Unscheduled Guest",
+    "attributes": {
+      "reference": "visit-4",
+      "name": "Unscheduled Guest",
+      "slot": "",
+      "requestedAt": "2026-11-18T08:15:00Z",
+      "documentType": "passport",
+      "status": "requested"
+    }
+  },
+  {
+    "sourceId": "visit-5",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:20:00Z",
+    "label": "Fifth Guest",
+    "attributes": {
+      "reference": "visit-5",
+      "name": "Fifth Guest",
+      "slot": "C",
+      "requestedAt": "2026-11-18T08:20:00Z",
+      "documentType": "passport",
+      "status": "requested"
+    }
+  },
+  {
+    "sourceId": "visit-6",
+    "source": "访客预约登记台",
+    "observedAt": "2026-11-18T08:25:00Z",
+    "label": "Sixth Guest",
+    "attributes": {
+      "reference": "visit-6",
+      "name": "Sixth Guest",
+      "slot": "A",
+      "requestedAt": "2026-11-18T08:25:00Z",
+      "documentType": "passport",
+      "status": "requested"
+    }
+  }
+]

@@ -9,6 +9,8 @@ export async function startPortal({ capacity = 2, requireDocument = true } = {})
   const bookings = new Map();
   const requests = [];
   let lostReceipt = false;
+  let lostCancel = false;
+  let lostBookings = false;
   let revision = 1;
   const server = createServer(async (request, response) => {
     const address = new URL(request.url, 'http://localhost');
@@ -30,6 +32,7 @@ export async function startPortal({ capacity = 2, requireDocument = true } = {})
       return;
     }
     if (request.method === 'GET' && address.pathname === '/portal/bookings') {
+      if (lostBookings) { lostBookings = false; request.socket.destroy(); return; }
       const found = [...bookings.values()].filter((booking) => booking.reference === address.searchParams.get('reference'));
       json(200, { revision, bookings: found }); return;
     }
@@ -69,6 +72,7 @@ export async function startPortal({ capacity = 2, requireDocument = true } = {})
       const booking = bookings.get(fields.get('receipt'));
       if (!booking) { json(404, { error: 'unknown receipt' }); return; }
       booking.status = 'cancelled'; booking.revision = ++revision;
+      if (lostCancel) { lostCancel = false; request.socket.destroy(); return; }
       json(200, booking); return;
     }
     json(404, { error: 'not found' });
@@ -79,6 +83,8 @@ export async function startPortal({ capacity = 2, requireDocument = true } = {})
     url: `http://127.0.0.1:${server.address().port}`,
     requests,
     loseNextReceipt() { lostReceipt = true; },
+    loseNextCancel() { lostCancel = true; },
+    loseNextBookings() { lostBookings = true; },
     expireSessions() { sessions.clear(); },
     close() { server.closeAllConnections(); return new Promise((resolve) => server.close(resolve)); },
   };
